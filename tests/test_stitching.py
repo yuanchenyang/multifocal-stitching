@@ -1,23 +1,76 @@
 import unittest
 import numpy as np
-from multifocal_stitching.stitching import *
-from multifocal_stitching.utils import *
+import os
+import sys
+import shutil
+import csv
+from multifocal_stitching.stitching import stitch
+from multifocal_stitching.utils import read_img
+from multifocal_stitching.merge_imgs import merge_imgs
+from multifocal_stitching.__main__ import main as cli
+from multifocal_stitching.__main__ import CSV_HEADER
 
 def coord_is_close(res, val, tol=5):
     assert np.linalg.norm(np.array(res.coord) - np.array(val), 1) <= tol
 
+def get_full_path(base_dir, filename, mkdir=False):
+    path = os.path.join(base_dir, filename)
+    if mkdir and not os.path.exists(path):
+        os.makedirs(path)
+    return path
+
+class TestCLI(unittest.TestCase):
+    def setUp(self):
+        self.base_dir = 'tests/img_folder'
+        shutil.rmtree(self.base_dir, ignore_errors=True)
+        os.makedirs(self.base_dir)
+        shutil.copy('tests/imgs/high_freq_features_1_small.jpg', self.base_dir)
+        shutil.copy('tests/imgs/high_freq_features_2_small.jpg', self.base_dir)
+        sys.argv = ['', self.base_dir]
+
+    def test_cli(self):
+        cli()
+        csvfilename = get_full_path(self.base_dir, 'stitching_result.csv')
+        self.assertTrue(os.path.isfile(csvfilename))
+        with open(csvfilename) as csvfile:
+            reader = csv.reader(csvfile)
+            self.assertEqual(next(reader), CSV_HEADER)
+            img_name1, img_name2, dx, dy, corr_coeff, area, best_r, best_win = next(reader)
+            self.assertEqual(img_name1, 'high_freq_features_1_small.jpg')
+            self.assertEqual(img_name2, 'high_freq_features_2_small.jpg')
+            self.assertAlmostEqual(int(dx), 2474, delta=2)
+            self.assertAlmostEqual(int(dy), 495, delta=2)
+            self.assertAlmostEqual(float(corr_coeff), 0.5548805792236229)
+            self.assertEqual(int(area), 2274390)
+            self.assertEqual(int(best_r), 50)
+            self.assertEqual(int(best_win), 0)
+
+        merged_name = os.path.join(
+            self.base_dir,
+            'merged',
+            'high_freq_features_1_small__high_freq_features_2_small.jpg'
+        )
+        merged_r_name = os.path.join(
+            self.base_dir,
+            'merged',
+            'high_freq_features_1_small__high_freq_features_2_small_r.jpg'
+        )
+        self.assertTrue(os.path.isfile(merged_name))
+        self.assertTrue(os.path.isfile(merged_r_name))
+        merged = read_img(merged_name)
+        merged_r = read_img(merged_r_name)
+        self.assertEqual(merged.shape, merged_r.shape)
+        self.assertEqual(merged.shape, (2655, 6314))
+
 class TestStitching(unittest.TestCase):
     def setUp(self):
-        parser = add_stitching_args(add_merge_args(get_default_parser()))
-        self.args = parser.parse_args(['tests/imgs'])
+        self.base_dir = 'tests/imgs'
 
     def stitch_name(self, name):
         names = [f'{name}_{ext}_small.jpg' for ext in '12']
-        img_names = [get_full_path(self.args, name) for name in names]
-        res = stitch(self.args, *map(read_img, img_names))
-        res_dir = get_full_path(self.args, self.args.result_dir, mkdir=True)
+        res = stitch(*[read_img(get_full_path(self.base_dir, name)) for name in names])
+        res_dir = get_full_path(self.base_dir, 'merged', mkdir=True)
         dx, dy = res.coord
-        merge_imgs(self.args, res_dir, names[0], names[1], dx, dy)
         return res
 
     def test_stitching_high_freq_features(self):

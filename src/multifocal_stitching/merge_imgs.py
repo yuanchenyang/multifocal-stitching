@@ -34,16 +34,3 @@ def merge_imgs(args, res_dir, img1, img2, dx, dy):
     if not args.exclude_reverse:
         res.paste(i1, (i1_x, i1_y))
         res.save(res_path[:-4] + '_r.jpg')
-
-def main():
-    parser = add_merge_args(get_default_parser())
-    args = parser.parse_args()
-    res_dir = get_full_path(args, args.result_dir, mkdir=True)
-    with open(get_full_path(args, args.stitching_result)) as csvfile:
-        reader = csv.reader(csvfile)
-        next(reader) # skip header row
-        for img1, img2, dx, dy, *_ in reader:
-            merge_imgs(args, res_dir, img1, img2, dx, dy)
-
-if __name__=='__main__':
-    main()
