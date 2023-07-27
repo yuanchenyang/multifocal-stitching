@@ -1,7 +1,7 @@
 [project]
 name = "multifocal-stitching"
-version = "0.1"
-description = ""
+version = "0.1.1"
+description = "Algorithms and tools for stitching microscopy images taken at different focal lengths"
 readme = "README.md"
 requires-python = ">=3.7"
 license = {file = "LICENSE"}
