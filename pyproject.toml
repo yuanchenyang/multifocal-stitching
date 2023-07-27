@@ -1,0 +1,58 @@
+[project]
+name = "multifocal_stitching"
+version = "0.1"
+description = ""
+readme = "README.md"
+requires-python = ">=3.7"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Chenyang Yuan", email = "yuanchenyang@gmail.com" }
+]
+maintainers = [
+  {name = "Chenyang Yuan", email = "yuanchenyang@gmail.com" }
+]
+
+classifiers = [
+  # How mature is this project? Common values are
+  #   3 - Alpha
+  #   4 - Beta
+  #   5 - Production/Stable
+  "Development Status :: 3 - Alpha",
+
+  # Pick your license as you wish
+  "License :: OSI Approved :: MIT License",
+
+  # Specify the Python versions you support here. In particular, ensure
+  # that you indicate you support Python 3. These classifiers are *not*
+  # checked by "pip install". See instead "python_requires" below.
+  "Programming Language :: Python :: 3",
+
+  "Operating System :: OS Independent",
+]
+
+dependencies = [
+  "numpy",
+  "scipy",
+  "scikit-learn",
+  "opencv-python",
+  "Pillow",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/yuanchenyang/multifocal-stitching"
+"Bug Tracker" = "https://github.com/yuanchenyang/multifocal-stitching/issues"
+"Documentation" = "https://github.com/yuanchenyang/multifocal-stitching"
+"Source" = "https://github.com/yuanchenyang/multifocal-stitching"
+
+[project.optional-dependencies] # Optional
+dev = ["build", "twine"]
+test = ["pytest", "pytest-cov"]
+
+[build-system]
+requires = ["setuptools>=62"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  ".", "src",
+]
