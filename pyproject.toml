@@ -1,5 +1,5 @@
 [project]
-name = "multifocal_stitching"
+name = "multifocal-stitching"
 version = "0.1"
 description = ""
 readme = "README.md"
