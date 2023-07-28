@@ -20,7 +20,9 @@ __pycache__
 /env/
 /tests/imgs/merged/
 /tests/imgs/large/
+/tests/imgs/stitching_result.csv
 /tests/img_folder/
+
 htmlcov
 *.egg-info
 .coverage

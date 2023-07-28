@@ -5,19 +5,13 @@ import sys
 import shutil
 import csv
 from multifocal_stitching.stitching import stitch
-from multifocal_stitching.utils import read_img
-from multifocal_stitching.merge_imgs import merge_imgs
+from multifocal_stitching.utils import read_img, get_full_path
+from multifocal_stitching.merge_imgs import merge_and_save
 from multifocal_stitching.__main__ import main as cli
 from multifocal_stitching.__main__ import CSV_HEADER
 
 def coord_is_close(res, val, tol=5):
     assert np.linalg.norm(np.array(res.coord) - np.array(val), 1) <= tol
-
-def get_full_path(base_dir, filename, mkdir=False):
-    path = os.path.join(base_dir, filename)
-    if mkdir and not os.path.exists(path):
-        os.makedirs(path)
-    return path
 
 class TestCLI(unittest.TestCase):
     def setUp(self):
@@ -45,16 +39,10 @@ class TestCLI(unittest.TestCase):
             self.assertEqual(int(best_r), 50)
             self.assertEqual(int(best_win), 0)
 
-        merged_name = os.path.join(
-            self.base_dir,
-            'merged',
-            'high_freq_features_1_small__high_freq_features_2_small.jpg'
-        )
-        merged_r_name = os.path.join(
-            self.base_dir,
-            'merged',
-            'high_freq_features_1_small__high_freq_features_2_small_r.jpg'
-        )
+        merged_name, merged_r_name = [os.path.join(
+            self.base_dir, 'merged',
+            f'high_freq_features_1_small__high_freq_features_2_small_{i}.jpg')
+                        for i in range(2)]
         self.assertTrue(os.path.isfile(merged_name))
         self.assertTrue(os.path.isfile(merged_r_name))
         merged = read_img(merged_name)
@@ -62,7 +50,7 @@ class TestCLI(unittest.TestCase):
         self.assertEqual(merged.shape, merged_r.shape)
         self.assertEqual(merged.shape, (2655, 6314))
 
-class TestStitching(unittest.TestCase):
+class TestStitch(unittest.TestCase):
     def setUp(self):
         self.base_dir = 'tests/imgs'
 
@@ -71,6 +59,8 @@ class TestStitching(unittest.TestCase):
         res = stitch(*[read_img(get_full_path(self.base_dir, name)) for name in names])
         res_dir = get_full_path(self.base_dir, 'merged', mkdir=True)
         dx, dy = res.coord
+        merge_and_save(self.base_dir, res_dir, names[0], names[1], dx, dy,
+                       resize_factor=8, save_gif=True)
         return res
 
     def test_stitching_high_freq_features(self):
