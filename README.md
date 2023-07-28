@@ -1,8 +1,12 @@
 Multifocal Image Stitching
 ---------------
-| **Documentation** | **Build Status** |
-|:-----------------:|:----------------:|
-| [![][docs-latest-img]][docs-latest-url] | [![Build Status][build-img]][build-url] |
+
+
+| **Documentation** | **Build Status** | **Demo**  |
+|:-----------------:|:----------------:|:---------:|
+| [![][docs-latest-img]][docs-latest-url] | [![Build Status][build-img]][build-url] | [![][hf-img]][hf-url] |
+
+[![Hugging Face Spaces]()](https://huggingface.co/spaces/cvlab/zero123-live)
 
 This package aims to:
 - Accurately compute translation parameters between two images taken with a
@@ -94,3 +98,5 @@ options:
 [docs-latest-url]: https://github.com/yuanchenyang/multifocal-stitching
 [build-img]: https://github.com/yuanchenyang/multifocal-stitching/workflows/CI/badge.svg?branch=master
 [build-url]: https://github.com/yuanchenyang/multifocal-stitching/actions?query=workflow%3ACI
+[hf-img]: https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-blue
+[hf-url]: https://huggingface.co/spaces/yuanchenyang/multifocal-stitching

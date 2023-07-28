@@ -21,7 +21,7 @@ jobs:
           python -m pip install --upgrade pip
       - name: Install package and test dependencies
         run: |
-          pip install -e .[test]
+          pip install -e .[test, webapp]
       - name: Test with pytest
         run: |
           pytest --doctest-modules

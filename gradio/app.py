@@ -44,15 +44,15 @@ examples = [
 ]
 demo = gr.Interface(fn=stitch_interface, inputs=[
     gr.Image(type='pil'), gr.Image(type='pil'),
-    gr.Dropdown(list(range(10,501,10)), value=[100, 50, 20], multiselect=True, label="filter_radii",
-                info="Low-pass filter radii to try, smaller matches coarser/out-of-focus features"),
+    gr.Dropdown(list(range(10,501,10)), value=[100, 50, 20], multiselect=True, label='filter_radii',
+                info='Low-pass filter radii to try, smaller matches coarser/out-of-focus features'),
     gr.Slider(minimum=0, maximum=1, step=0.001, value=0.125, label='min_overlap',
               info='Set lower limit for overlapping region as a fraction of total image area'),
     gr.Slider(minimum=0, maximum=5, step=0.1, value=1.0, label='peak_cutoff_std',
               info='Number of standard deviations below max value to use for peak finding'),
     gr.Slider(minimum=1, maximum=100, step=1, value=25, label='peaks_dist_threshold',
               info='Distance to consider as part of same cluster when finding peak centroid'),
-    gr.Radio(["No window", "Hanning window", "Both"], label='use_wins',type="index",
+    gr.Radio(['No window', 'Hanning window', 'Both'], label='use_wins',type='index', value='No window',
              info='Whether to try using Hanning window'),
 
 ], outputs=[
