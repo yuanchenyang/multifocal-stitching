@@ -1,6 +1,6 @@
 [project]
 name = "multifocal-stitching"
-version = "0.2"
+version = "0.2.1"
 description = "Algorithms and tools for stitching microscopy images taken at different focal lengths"
 readme = "README.md"
 requires-python = ">=3.7"
