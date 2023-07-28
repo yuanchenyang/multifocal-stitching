@@ -68,12 +68,12 @@ def get_peak_centroids(res: np.ndarray,
 
 StitchingResult = namedtuple(
     'StitchingResult',
-    ['corr_coeff', 'corr', 'delta', 'val', 'area', 'best_r', 'best_win']
+    ['corr_coeff', 'corr', 'delta', 'val', 'area', 'r', 'use_win']
 )
 
 def print_stitching_result(r: StitchingResult):
     dx, dy = r.delta
-    print(f'dx:{dx: 5} dy:{dy: 5} corr:{r.corr_coeff:+f} area:{r.area: 9} r:{r.best_r: 3}')
+    print(f'dx:{dx: 5} dy:{dy: 5} corr:{r.corr_coeff:+f} area:{r.area: 9} r:{r.r: 3}')
 
 def candidate_stitches(img1: np.ndarray, img2: np.ndarray,
                        use_wins: Tuple[int] = (0,),

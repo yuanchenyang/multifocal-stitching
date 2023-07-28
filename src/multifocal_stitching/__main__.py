@@ -30,7 +30,7 @@ def main():
             dx, dy = result.delta
             img_name1, img_name2 = map(get_name, img_names)
             writer.writerow([img_name1, img_name2, dx, dy, result.corr_coeff,
-                             result.area, result.best_r, result.best_win])
+                             result.area, result.r, result.use_win])
             if not args.no_merge:
                 if args.verbose:
                     print('Merging:', img_name1, img_name2)
