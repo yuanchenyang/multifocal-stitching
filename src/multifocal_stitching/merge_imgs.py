@@ -3,7 +3,7 @@ from PIL import Image
 from typing import Tuple
 from .utils import *
 
-def merge(i1: Image, i2: Image, dx:int, dy:int) -> Tuple[Image, Image]:
+def merge(i1: Image, i2: Image, dx:int, dy:int) -> Tuple[Image.Image, Image.Image]:
     assert i1.size == i2.size, "Images must be same size!"
     W, H = i1.size
     new_W, new_H = W + abs(dx), H + abs(dy)
