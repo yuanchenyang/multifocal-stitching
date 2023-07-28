@@ -62,17 +62,17 @@ def get_peak_centroids(res: np.ndarray,
             distance_threshold=peaks_dist_threshold
         ).fit(X).labels_
         cents = list(centroids(X, labels))
-        yield from sorted(cents, key=lambda coord: res[tuple(coord)])
+        yield from sorted(cents, key=lambda delta: res[tuple(delta)])
     else:
         yield from np.argwhere(cutoff)
 
 StitchingResult = namedtuple(
     'StitchingResult',
-    ['corr_coeff', 'corr', 'coord', 'val', 'area', 'best_r', 'best_win']
+    ['corr_coeff', 'corr', 'delta', 'val', 'area', 'best_r', 'best_win']
 )
 
 def print_stitching_result(r: StitchingResult):
-    dx, dy = r.coord
+    dx, dy = r.delta
     print(f'dx:{dx: 5} dy:{dy: 5} corr:{r.corr_coeff:+f} area:{r.area: 9} r:{r.best_r: 3}')
 
 def candidate_stitches(img1: np.ndarray, img2: np.ndarray,

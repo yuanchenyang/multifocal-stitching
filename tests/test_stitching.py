@@ -58,7 +58,7 @@ class TestStitch(unittest.TestCase):
         names = [f'{name}_{ext}_small.jpg' for ext in '12']
         res = stitch(*[read_img(get_full_path(self.base_dir, name)) for name in names])
         res_dir = get_full_path(self.base_dir, 'merged', mkdir=True)
-        dx, dy = res.coord
+        dx, dy = res.delta
         merge_and_save(self.base_dir, res_dir, names[0], names[1], dx, dy,
                        resize_factor=8, save_gif=True)
         return res

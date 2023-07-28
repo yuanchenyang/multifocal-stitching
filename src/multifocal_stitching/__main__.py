@@ -27,7 +27,7 @@ def main():
                             min_overlap = args.min_overlap,
                             early_term_thresh = args.early_term_thresh,
                             verbose = args.verbose)
-            dx, dy = result.coord
+            dx, dy = result.delta
             img_name1, img_name2 = map(get_name, img_names)
             writer.writerow([img_name1, img_name2, dx, dy, result.corr_coeff,
                              result.area, result.best_r, result.best_win])
