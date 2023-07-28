@@ -11,7 +11,7 @@ from multifocal_stitching.__main__ import main as cli
 from multifocal_stitching.__main__ import CSV_HEADER
 
 def coord_is_close(res, val, tol=5):
-    assert np.linalg.norm(np.array(res.coord) - np.array(val), 1) <= tol
+    assert np.linalg.norm(np.array(res.delta) - np.array(val), 1) <= tol
 
 class TestCLI(unittest.TestCase):
     def setUp(self):
