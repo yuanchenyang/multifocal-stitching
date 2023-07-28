@@ -68,7 +68,7 @@ def get_peak_centroids(res: np.ndarray,
 
 StitchingResult = namedtuple(
     'StitchingResult',
-    ['corr_coeff', 'corr', 'delta', 'val', 'area', 'r', 'use_win']
+    ['corr_coeff', 'corr', 'freq_delta', 'delta', 'val', 'area', 'r', 'use_win']
 )
 
 def print_stitching_result(r: StitchingResult):
@@ -115,7 +115,7 @@ def candidate_stitches(img1: np.ndarray, img2: np.ndarray,
             for dy, dx in get_peak_centroids(res, peak_cutoff_std, peaks_dist_threshold):
                 for dX, dY in product((dx, -X+dx), (dy, -Y+dy)):
                     coef, area = get_overlap(img1, img2, (dX, dY), min_overlap=min_overlap)
-                    result = StitchingResult(coef, res, (dX, dY), res[dY, dX], area, r, use_win)
+                    result = StitchingResult(coef, res, (dx, dy), (dX, dY), res[dY, dX], area, r, use_win)
                     if verbose:
                         print_stitching_result(result)
                     yield result
