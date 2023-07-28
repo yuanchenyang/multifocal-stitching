@@ -4,7 +4,23 @@ Multifocal Image Stitching
 |:-----------------:|:----------------:|
 | [![][docs-latest-img]][docs-latest-url] | [![Build Status][build-img]][build-url] |
 
+This package aims to:
+- Accurately compute translation parameters between two images taken with a
+  translation and focus change
+- Be tolerant of high levels of noise and blurriness caused by the focus change
+
+This package does not:
+- Account for other non-translational camera models
+- Calculate subpixel-level stitching coordinates
+- Perform focus stacking or blending of images in any manner
+
+### Examples
+
+Matching using low-frequency features:
+
 <img src="assets/image1.png" width="90%"/>
+
+Matching using high-frequency features:
 
 <img src="assets/image2.png" width="90%"/>
 
@@ -17,7 +33,14 @@ pip install multifocal-stitching
 ```
 
 ### Usage
-Ensure the images to be stitched are sequentially named in `dir`.
+Ensure the images to be stitched are sequentially named in `<dir>`, then run:
+
+```
+python -m multifocal_stitching <dir>
+```
+
+Most images can be stitched successfully with the default settings. To fine-tune
+settings with the CLI:
 
 ```
 python -m multifocal_stitching -h
@@ -66,8 +89,6 @@ options:
                         Whether to resize the images saved by a factor (default: 1)
   --save_gif            Whether to save a gif alternating between the merged files (default: False)
 ```
-
-### Examples
 
 [docs-latest-img]: https://img.shields.io/badge/docs-latest-blue.svg
 [docs-latest-url]: https://github.com/yuanchenyang/multifocal-stitching
