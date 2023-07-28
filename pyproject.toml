@@ -47,6 +47,7 @@ dependencies = [
 [project.optional-dependencies] # Optional
 dev = ["build", "twine"]
 test = ["pytest", "pytest-cov"]
+webapp = ["gradio", "matplotlib"]
 
 [build-system]
 requires = ["setuptools>=62"]
