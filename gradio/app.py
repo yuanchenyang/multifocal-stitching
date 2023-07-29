@@ -14,7 +14,7 @@ def stitch_interface(img1, img2,
     WINS = [(0,), (1,), (0,1)]
     results = sorted(list(candidate_stitches(*grey_imgs,
                                              early_term_thresh=1.0,
-                                             filter_radii=filter_radii,
+                                             filter_radii=map(int, filter_radii),
                                              min_overlap=min_overlap,
                                              peak_cutoff_std=peak_cutoff_std,
                                              peaks_dist_threshold=peaks_dist_threshold,
