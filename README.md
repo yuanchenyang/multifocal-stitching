@@ -6,8 +6,6 @@ Multifocal Image Stitching
 |:-----------------:|:----------------:|:---------:|
 | [![][docs-latest-img]][docs-latest-url] | [![Build Status][build-img]][build-url] | [![][hf-img]][hf-url] |
 
-[![Hugging Face Spaces]()](https://huggingface.co/spaces/cvlab/zero123-live)
-
 This package aims to:
 - Accurately compute translation parameters between two images taken with a
   translation and focus change
